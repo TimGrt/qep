@@ -3,6 +3,8 @@
 - name: Prepare Automation Controller
   hosts: localhost
   connection: local
+  vars_files:
+    - variables.yml
   pre_tasks:
     - name: Ensure required connection variables are defined
       ansible.builtin.assert:
@@ -14,8 +16,33 @@
           - lookup('env', 'CONTROLLER_PASSWORD') is defined
           - lookup('env', 'CONTROLLER_PASSWORD') | length > 0
         quiet: true
-        fail_msg: ""
+        fail_msg: "Variables for accessing Automation controller are missing! Export the variables."
   tasks:
-    - name: Get job list
-      awx.awx.job_list:
-        status: failed
+    - name: Add project with content for QEP
+      awx.awx.project:
+        name: QEP
+        scm_type: git
+        scm_url: https://github.com/TimGrt/qep.git
+        scm_branch: dev
+        scm_clean: true
+        scm_delete_on_update: true
+        scm_update_on_launch: true
+
+    - name: Add Job Template for Webserver Deployment with Survey
+      awx.awx.job_template:
+        name: Webserver Deployment
+        description: Personalisierter Webserver für das QEP
+        inventory: Demo Inventory
+        project: QEP
+        playbook: controller_automation.yml
+        survey_enabled: true
+        survey_spec:
+          name: Webserver Deployment Survey
+          description: Survey Spezifikation für Webserver Deployment Template
+          spec:
+            - question_name: Für wen soll der Webserver personalisiert werden?
+              required: true
+              type: multiplechoice
+              choices: "{{ attendee_list }}"
+              variable: webserver_owner
+              default: ""
