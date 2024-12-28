@@ -34,7 +34,7 @@
         description: Personalisierter Webserver für das QEP
         inventory: Demo Inventory
         project: QEP
-        playbook: controller_automation.yml
+        playbook: playbook_webserver_deployment.yml
         survey_enabled: true
         survey_spec:
           name: Webserver Deployment Survey
