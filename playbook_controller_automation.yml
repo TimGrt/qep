@@ -20,20 +20,18 @@
   tasks:
     - name: Add project with content for QEP
       ansible.controller.project:
-        name: QEP
+        name: QEP Repository
         scm_type: git
         scm_url: https://github.com/TimGrt/qep.git
         scm_branch: dev
-        scm_clean: true
-        scm_delete_on_update: true
         scm_update_on_launch: true
 
     - name: Add Job Template for Webserver Deployment with Survey
       ansible.controller.job_template:
         name: Webserver Deployment
         description: Personalisierter Webserver für das QEP
-        inventory: Demo Inventory
-        project: QEP
+        inventory: Workshop Inventory
+        project: QEP Repository
         playbook: playbook_webserver_deployment.yml
         survey_enabled: true
         survey_spec:
