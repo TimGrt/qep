@@ -27,6 +27,16 @@
         scm_branch: dev
         scm_update_on_launch: true
 
+    - name: Ensure all hosts from web group are enabled
+      ansible.controller.host:
+        name: "{{ item }}"
+        inventory: Workshop Inventory
+        enabled: true
+      loop:
+        - node1
+        - node2
+        - node3
+
     - name: Add Job Template for Webserver Deployment with Survey
       ansible.controller.job_template:
         name: Webserver Deployment
@@ -34,6 +44,8 @@
         inventory: Workshop Inventory
         project: QEP Repository
         playbook: playbook_webserver_deployment.yml
+        credentials:
+          - Workshop Credential
         survey_enabled: true
         survey_spec:
           name: Webserver Deployment Survey
