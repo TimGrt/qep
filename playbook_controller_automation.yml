@@ -21,6 +21,7 @@
     - name: Add project with content for QEP
       ansible.controller.project:
         name: QEP Repository
+        organization: Default
         scm_type: git
         scm_url: https://github.com/TimGrt/qep.git
         scm_branch: dev
