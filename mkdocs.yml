@@ -20,6 +20,7 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.keys
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.highlight:
@@ -90,4 +91,5 @@ watch:
 nav:
   - index.md
   - "Teil 1:<br>Infrastructure as Code": part1.md
-  - "Teil 2:<br>Code-Update": part2.md
+  - "Teil 2:<br>Arbeiten mit Git": part2.md
+  - "Teil 3:<br>Code-Update": part3.md

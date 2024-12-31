@@ -1,86 +1,63 @@
-# Teil 2 - Update Code
+# Teil 2 - Arbeiten mit Git
 
-In der vorherigen Übung habt ihr ein Job-Template in der Automation Platform erstellt mit einem Survey zur Personalisierung des Webservers.  
-Damit euer Name ebenfalls in der Auswahlliste des *Surveys* auftaucht, muss der *Code* (die *Listen*-Variable) angepasst werden.  
-Ihr durchlauft dabei einen typischen *Entwicklungs-Workflow*, ihr verwendet das Versionskontroll-Tool *Git* und (den Git-Hosting-Service) *Github*, erstellt einen *Issue*, werdet auf der Kommandozeile den Code nach euren Wünschen anpassen und anschließend einen *Merge Request* (*Pull Request*) erstellen.
+In der vorherigen Übung hast du automatisiert ein Job-Template in der Ansible Automation Platform erstellt, welches über ein *Survey* (eine interaktive Abfrage) die Möglichkeit bietet, den Webserver (bzw. die vielen Webserver, es werden tatsächlich drei Webserver-Instanzen erstellt) zu personalisieren. Die Abfrage bietet aktuell nur einen einzelnen Namen an, damit auch dein Name dort auftaucht, musst du den Code selbst anpassen.  
+Die Code-Anpassung erfordert dass du dich mit dem Versionskontroll-Tool *Git* vertraut machst, die folgenden Schritte bereiten dich und deine Entwicklungsumgebung darauf vor.
 
-``` { .mermaid }
-gitGraph
-   commit
-   commit
-   branch dev
-   checkout dev
-   commit
-   branch feature/name
-   checkout feature/name
-   commit
-   checkout dev
-   merge feature/name
-   checkout main
-   merge dev
-   commit type:HIGHLIGHT
-```
+## 1. VSCode Entwicklungsumgebung öffnen
 
-## 1. Vom Remote Repository zum lokalen Repository
+## 2. SSH-Schlüsselpaar erstellen
 
-Das Projekt vom *Remote Repository* herunterladen (*klonen*):
+Um den notwendigen Code (das *Repository*) herunterladen zu können und, noch wichtiger, anpassen und wieder hochladen zukönnen, benötigst du ein *Schlüsselpaar*.  
+
+Öffne ein Terminal in VSCode und gib das folgende Kommando ein:
 
 ```console
-git clone https://github.com/TimGrt/qep.git
+ssh-keygen -t ed25519
 ```
 
-Ein neuer Ordner ist entstanden, in diesen wechseln (*cd* means *change directory*):
+Die Abfragen kannst du einfach mit ++enter++ bestätigen (drei Mal bestätigen), die Ausgabe sieht in etwa so aus:
+
+```{ .console .no-copy }
+[student1@ansible-1 qep]$ ssh-keygen -t ed25519
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/student1/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/student1/.ssh/id_ed25519.
+Your public key has been saved in /home/student1/.ssh/id_ed25519.pub.
+The key fingerprint is:
+SHA256:8HXsZw6mD5m6PNl6WHoiYy0B/Il+1zRHVrfcpR+rZpI student1@ansible-1.example.com
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+|           .  . o|
+|   .  .   . o..o+|
+|    o  o . oo .+.|
+|     + .S  o+ o.o|
+|    . +   +=.= ..|
+|   .   o O=o. o  |
+|    . *.O.=E +   |
+|     o ==B  =    |
++----[SHA256]-----+
+```
+
+Du hast ein neues SSH (Secure Shell) Schlüsselpaar erstellt, einen *privaten* Schlüssel und einen *öffentlichen* Schlüssel (mit der Endung `.pub` für *public*), welchen du gefahrlos verbreiten darfst. Wir werden diesen öffentlichen Schlüssel im nächsten Schritt benötigen, du kannst ihn dir bereits einmal auf der Kommandozeile anzeigen lassen, von dort kannst du ihn gleich markieren und kopieren.
 
 ```console
-cd qep
+cat ~/.ssh/id_ed25519.pub
 ```
 
-Du bist jetzt in einem *git-versionierten* Ordner, prüfe mit dem Kommando `git status`, der Output sollte folgendermaßen aussehen:
+??? example "Beispielausgabe"
 
-``` { .console .no-copy }
-[student1@ansible-1 qep]$ git status
-On branch dev
-Your branch is up to date with 'origin/dev'.
-
-nothing to commit, working tree clean
-```
-
-> Du befindest dich auf dem `dev`-Branch. Dieser Branch ist *schreibgeschützt* (lediglich über einen Pull Request können Änderungen hinzugefügt werden).
-
-Erstelle einen eigenen (lokalen) Branch mit eurem Namen, in der Form `feature/<dein-name>`:
-
-```console
-git checkout -b feature/name
-```
-
-!!! warning "Alles korrekt?"
-    Hast du `name` gegen deinen eigenen Namen ausgetauscht?
-
-Du hast vom `dev`-Branch einen weiteren Branch abgezweigt, auf diesem wirst du deine Änderungen hinterlegen. Du kannst mit `git status` erneut prüfen.
-
-## 2. Variablen-Datei anpassen
-
-Füge in der Datei `variables.yml` deinen Namen in der Liste hinzu, damit das *Survey* im *Controller Automation* Template diesen als Option für den personalisierten Webserver anbietet.  
-Du kannst die Datei im *Explorer* links anklicken, sie wird *Code Editor* geöffnet und kann dort editiert werden:
-
-![Variable File Opened](assets/images/CodeVariableFile.png)
-
-Die Datei ist im sog. *YAML*-Format (ein Datenserialisierungsformat), füge in der Variablen `attendee_list` deinen Namen als weiteren Listeneintrag hinzu (beginnt mit einem *Minus* (*Dash*) Symbol), achte dabei auf die Einrückung (zwei Leerzeichen vor dem *Minus*-Symbol)
-
-!!! abstract "Inhalt der Variablen-Datei vor der Anpassung"
-
-    ```{ .yaml .no-copy }
-    --8<-- "variables.yml"
+    ```{ .console .no-copy }
+    [student1@ansible-1 qep]$ cat ~/.ssh/id_ed25519.pub
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDt+WFoUBWhs77m/784FaT+eqqavHf/Jz/+8DW04l2fP student1@ansible-1.example.com
     ```
 
-Am Ende sollte die Datei folgendermaßen aussehen (mit eurem Namen natürlich):
+## 3. Github-Account erstellen
 
-```yaml
----
-# variable file for Ansible playbooks
-package: httpd
+Der Code für das Job-Template in der Automation Platform befindet sich in der Git-Hosting Plattform **Github**, um an dem Projekt (Repository) mitarbeiten zukönnen, benötigst du einen Account.
 
-attendee_list:
-  - Tim Grützmacher
-  - Eslem Bayraktar
-```
+Öffne den folgenden Link: [https://github.com/signup](https://github.com/signup){ target=_blank }
+
+![Github Sign-Up Page](assets/images/GithubSignUp.png)
