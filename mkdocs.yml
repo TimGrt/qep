@@ -67,6 +67,7 @@ theme:
   features:
     - content.code.annotate
     - content.code.copy
+    - navigation.footer
     - navigation.instant
     - navigation.section
     - navigation.top
