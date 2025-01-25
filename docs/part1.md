@@ -1,6 +1,6 @@
 # Infrastructure as Code
 
-Als ersten Schritt wirst du dich auch der Weboberfläche der *Ansible Automation Platform* bewegen. Hier wirst du klassische *Ops*-Aufgaben (Betriebsaufgaben) durchführen, du wirst im UI einige Ressourcen erstellen, um anschließend einen Automatisierungsjob ausführen zu können.  
+Als ersten Schritt wirst du dich auf der Weboberfläche der *Ansible Automation Platform* bewegen. Hier wirst du klassische *Ops*-Aufgaben (Betriebsaufgaben) durchführen, du wirst im UI einige Ressourcen erstellen, um anschließend einen Automatisierungsjob ausführen zu können.  
 Mit Code selbst kommst du erstmal nicht in Berührung, der ist bereits vorbereitet (vom *Dev*-Team), du musst jetzt aber den Entwickler-Code in der Automatisierungs-Plattform für dich und deine *Ops*-Kollegen ausführbar machen.
 
 Du wirst in der Ansible Automation Platform die folgenden Ressourcen erstellen:
@@ -77,9 +77,9 @@ Speichert euer Job Template mit dem Button **Save**.
 
 ??? info "**Wozu das Ganze?**"  
     In einem *Job Template* wird ein Automatisierungs-*Run* festgelegt, damit lässt sich die Automatisierung später ausführen (so oft wir wollen!).  
-    Dazu müssen wir festlegen, welchen Code wollen wir ausführen wollen. Wir verweisen also auf das "Project* und wählen daraus ein sogenantes *Playbook* (hier drin steht der wirkliche *Code*). Ebenfalls müssen wir festlegen *wo* wir den Code ausführen wollen, das steht im *Inventory*. Das *Credential* legt fest *wie* wir uns mit dem Zielhost (oder den *vielen* Zielhosts) verbinden, wir müssen uns dort einloggen (*authentifizieren*).
+    Dazu müssen wir festlegen, welchen Code wollen wir ausführen wollen. Wir verweisen also auf das *Project* und wählen daraus ein sogenantes *Playbook* (hier drin steht der wirkliche *Code*). Ebenfalls müssen wir festlegen *wo* wir den Code ausführen wollen, das steht im *Inventory*. Das *Credential* legt fest *wie* wir uns mit dem Zielhost (oder den *vielen* Zielhosts) verbinden, wir müssen uns dort einloggen (*authentifizieren*).
 
-## 3. Automatisierung ausführen
+## 4. Automatisierung ausführen
 
 Alles ist vorbereitet, jetzt kann die Automatisierung ausgeführt werden!  
 Wählt aus den *Resources* wieder *Templates* aus. Neben eurem Job Template seht ihr ein kleines Raketen-Symbol (:fontawesome-solid-rocket:), klickt drauf und die Automatisierung läuft los!
@@ -88,3 +88,25 @@ Sobald das *Playbook* durchgelaufen ist, ist ein weiteres Job-Template in der AA
 Unter **Resources** und **Templates** findest du jetzt ebenfalls das Job Template `Webserver Deployment`.  
 
 Du kannst das Playbook ausführen mit dem kleinen Raketen-Symbol (:fontawesome-solid-rocket:), du wirst mit einer Abfrage (*Survey*) begrüßt. Hier kannst du den Webserver personalisieren, allerdings nicht mit deinem eigenen Namen, das sollten wir ändern!
+
+## 5. Issue erstellen
+
+Damit das *dev*-Team weiss was zu tun ist, musst du ein *Issue* im Github-Code-Repository erstellen. Ein Issue klingt erst einmal nach einem Fehler, aber ein Issue kann auch ein *Feature*-Request sein, also eine Verbesserung des bestehenden Codes.  
+
+Öffne den folgenden Link zum Github Repository: [https://github.com/TimGrt/qep](https://github.com/TimGrt/qep){ target=_blank }  
+
+Klicke auf den **Issues**-Tab und erstelle über den Button **New Issue**.  
+
+!!! warning
+    Nur mit einem Github Account kannst du einen Issue erstellen!  
+    Die Anmeldung zu Github geht schnell (und für deine Entwicklungsaufgaben wirst du ohnehin einen Github Account brauchen).
+
+Öffne den folgenden Link: [https://github.com/signup](https://github.com/signup){ target=_blank }
+
+![Github Sign-Up Page](assets/images/GithubSignUp.png)
+
+Nutze deine Computacenter E-Mail-Adresse, wähle ein sicheres Passwort und einen Nutzernamen (dein Nutzerkürzel, Spitzname, etc.).
+
+Account ist erstellt und bestätigt? Super, dann kannst du jetzt, wie ursprünglich geplant, den Issue im QEP-Repository erstellen, hier ist nochmal der Link, direkt zur Issue-Seite: [https://github.com/TimGrt/qep/issues](https://github.com/TimGrt/qep/issues){ target=_blank }
+
+Vergib einen aussagekräftigen Titel und beschreibe dein gewünschtes *Feature* (dein Name soll im *Survey* erscheinen, damit du den Webserver wie gewünscht personalisieren kannst). Den Issue über den **Create** Button unterhalb der Text-Box erstellen.

@@ -2,7 +2,7 @@
 
 In der vorherigen Übung hast du (automatisiert) ein Job-Template in der Automation Platform erstellt, mit einem Survey zur Personalisierung des Webservers.  
 Damit dein Name ebenfalls in der Auswahlliste des *Surveys* auftaucht, muss der *Code* (die *Listen*-Variable) angepasst werden.  
-Du durchläufst dabei einen typischen *Entwicklungs-Workflow*, du verwendest das Versionskontroll-Tool *Git* und (den Git-Hosting-Service) *Github*, erstellst einen *Issue*, wirst auf der Kommandozeile den Code nach deinen Wünschen anpassen und anschließend einen *Merge Request* (*Pull Request*) erstellen.
+Du durchläufst dabei einen typischen *Entwicklungs-Workflow*, du verwendest das Versionskontroll-Tool *Git* und (den Git-Hosting-Service) *Github*, zurvor hast du bereits einen *Issue* erstellt, wirst auf der Kommandozeile den Code nach deinen Wünschen anpassen und anschließend einen *Merge Request* (*Pull Request*) erstellen.
 
 ``` { .mermaid }
 gitGraph
@@ -21,44 +21,9 @@ gitGraph
    commit type:HIGHLIGHT
 ```
 
-## 1. Vom Remote Repository zum lokalen Repository
+## 1. Variablen-Datei anpassen
 
-Das Projekt vom *Remote Repository* herunterladen (*klonen*):
-
-```console
-git clone https://github.com/TimGrt/qep.git
-```
-
-Ein neuer Ordner ist entstanden, in diesen wechseln (*cd* means *change directory*):
-
-```console
-cd qep
-```
-
-Du bist jetzt in einem *git-versionierten* Ordner, prüfe mit dem Kommando `git status`, der Output sollte folgendermaßen aussehen:
-
-``` { .console .no-copy }
-[student1@ansible-1 qep]$ git status
-On branch dev
-Your branch is up to date with 'origin/dev'.
-
-nothing to commit, working tree clean
-```
-
-> Du befindest dich auf dem `dev`-Branch. Dieser Branch ist *schreibgeschützt* (lediglich über einen Pull Request können Änderungen hinzugefügt werden).
-
-Erstelle einen eigenen (lokalen) Branch mit deinem Namen, in der Form `feature/<dein-name>`:
-
-```console
-git checkout -b feature/name
-```
-
-!!! warning "Alles korrekt?"
-    Hast du `name` gegen deinen eigenen Namen ausgetauscht?
-
-Du hast vom `dev`-Branch einen weiteren Branch abgezweigt, auf diesem wirst du deine Änderungen hinterlegen. Du kannst mit `git status` erneut prüfen.
-
-## 2. Variablen-Datei anpassen
+Im vorherigen Schritt hast du dir das Projekt mit dem Playbook-Code auf deine Workstations (deine Entwicklungsumgebung) kopiert und einen neuen *Branch* erstellt.
 
 Füge in der Datei `variables.yml` deinen Namen in der Liste hinzu, damit das *Survey* im *Webserver Deployment* Template diesen als Option für den personalisierten Webserver anbietet.  
 Du kannst die Datei im *Explorer* links anklicken, sie wird im *Code Editor* geöffnet und kann dort editiert werden:
@@ -85,7 +50,7 @@ attendee_list:
   - Eslem Bayraktar
 ```
 
-## 3. Änderung *commiten*
+## 2. Änderung prüfen und *commiten*
 
 Da sich das Projekt unter Git-Versionskontrolle befindet, kannst du jede Veränderung überprüfen. Gib `git status` ein, du siehst, dass es eine Änderung in einer einzelnen Datei gibt (die von dir zuvor angepasste Datei `variables.yml`).
 
@@ -142,9 +107,9 @@ Mit der ++arrow-up++-Taste kannst du zum vorherigen Kommando zurück, sobald du 
  1 file changed, 1 insertion(+)
 ```
 
-Das sieht gut aus, du hast deine Änderung *lokal* versionkontrolliert. Im nächsten Schritt werden wir die Änderung im Github-Repository veröffentlichen.
+Das sieht gut aus, du hast deine Änderung *lokal* versionskontrolliert. Im nächsten Schritt werden wir die Änderung im Github-Repository veröffentlichen.
 
-## 4. Branch veröffentlichen
+## 3. Branch veröffentlichen
 
 Nachdem du die gewünschten Änderungen am Code vorgenommen hast und lokal versionskontrolliert hast, muss sie jetzt auch veröffentlicht werden.  
 
@@ -172,8 +137,15 @@ Der Output gibt an, dass der Branch veröffentlicht wurde, unter dem folgenden L
 
 [https://github.com/TimGrt/qep/branches](https://github.com/TimGrt/qep/branches){ target=_blank }
 
-## 5. Pull Request erstellen
+## 4. Pull Request erstellen
 
 Dein Code ist fertig, jetzt muss er noch in den passenden Branch überführt werden (in der AAP im *Project* wurde der `dev` Branch hinterlegt).  
 
 Im Github Projekt, klicke oben auf **Pull Request** und klicke auf der rechten Seite auf den grünen Button **New pull request**.  
+
+![Github Pull Request](assets/images/GithubPullRequest.png)
+
+Im **rechten** Drop-Down-Menü wählst du deinen Branch (der Quell-Branch), der Pfeil zeigt an dass die Änderungen in den *dev*-Branch überführt werden sollen.  
+Den grünen Button **Create Pull Request** verwenden.  
+
+Dein Trainer wird mit dir die Änderungen überprüfen (einen sog. *Code Review*) durchführen und dann gemeinsam *mergen* (und eventuelle *Merge Konflikte* auflösen).
