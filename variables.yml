@@ -1,0 +1,6 @@
+---
+# variable file for Ansible playbooks
+package: httpd
+
+attendee_list:
+  - Tim Grützmacher
