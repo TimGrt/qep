@@ -4,4 +4,5 @@ package: httpd
 
 attendee_list:
   - Tim Grützmacher
+  - Mona Raum-Deinzer
   - Isabel Carlos
