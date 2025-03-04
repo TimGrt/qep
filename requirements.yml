@@ -1,4 +1,4 @@
 ---
 
 collections:
-  - ansible.controller
+  - awx.awx
