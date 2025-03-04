@@ -19,7 +19,7 @@
         fail_msg: "Variables for accessing Automation controller are missing! Export the variables."
   tasks:
     - name: Add project with content for QEP
-      ansible.controller.project:
+      awx.awx.project:
         name: QEP Repository
         organization: Default
         scm_type: git
@@ -28,7 +28,7 @@
         scm_update_on_launch: true
 
     - name: Ensure all hosts from web group are enabled
-      ansible.controller.host:
+      awx.awx.host:
         name: "{{ item }}"
         inventory: Workshop Inventory
         enabled: true
@@ -38,7 +38,7 @@
         - node3
 
     - name: Add Job Template for Webserver Deployment with Survey
-      ansible.controller.job_template:
+      awx.awx.job_template:
         name: Webserver Deployment
         description: Personalisierter Webserver für das QEP
         inventory: Workshop Inventory
