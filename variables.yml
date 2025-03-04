@@ -4,6 +4,7 @@ package: httpd
 
 attendee_list:
   - Tim Grützmacher
+  - Beatrix Klein
   - Julia Werthebach 
   - Mona Raum-Deinzer
   - Isabel Carlos
